@@ -1,0 +1,46 @@
+<style>
+    table {
+        width: 100%;
+    }
+
+    td {
+        text-align: center;
+    }
+
+</style>
+
+<div class="col-md-12">
+    <div class="block text-center">
+      <h1 class="">Liste des souris éliminées</h1>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Complete ID</th>
+        <th scope="col">Mouse Id</th>
+        <th scope="col">Tumor Volume</th>
+        <th scope="col">CBL</th>
+        <th scope="col">H Rate</th>
+        <th scope="col">Order</th>
+        <th scope="col">Old Cage</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for mice in eliminated_souris %}
+      <tr>
+        <td>{{ mice.complete_id }}</td>
+        <td>{{ mice.mouse_id }}</td>
+        <td>{{ mice.tumor_volume }}</td>
+        <td>{{ mice.cbl }}</td>
+        <td>{{ mice.h_rate }}</td>
+        <td>{{ mice.order }}</td>
+        <td>{{ mice.old_cage }}</td>
+      </tr>
+      {% endfor%}
+    </tbody>
+</table>
+
+

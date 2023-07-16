@@ -187,6 +187,9 @@ def home(request):
 
 
 
+
+
+
 def choix_groupe_souris(request):
     mouse = SourisModel.objects.all()
     mouse_count = mouse.count()
@@ -236,14 +239,14 @@ def choix_groupe_souris(request):
             remaining_group = sorted_data[-remaining_elements:]
             groups.append(remaining_group.tolist())
 
-
-        # Delete all elements from the session
+        
+            # Delete all elements from the session
         # if 'groups' in request.session:
         #     del request.session['groups']
+        
 
         request.session['groups'] = groups
 
-    
 
         redirect_url = reverse('random_group')
         return redirect(redirect_url)
@@ -266,8 +269,8 @@ def creating_random_group_view(request):
 
     for i, group in enumerate(groups, start=1):
         tumor_volumes = [float(item[0]) for item in group]  # Convert tumor volumes to float
-        average_tumor_volume = sum(tumor_volumes) / len(tumor_volumes)  # Calculate average tumor volume
-        tumor_averages.append((i, average_tumor_volume))  # Append group indicator and average tumor volume
+        # average_tumor_volume = sum(tumor_volumes) / len(tumor_volumes)  # Calculate average tumor volume
+        # tumor_averages.append((i, average_tumor_volume))  # Append group indicator and average tumor volume
 
 
     # for group in groups:
@@ -275,8 +278,8 @@ def creating_random_group_view(request):
     #     average_tumor_volume = sum(tumor_volumes) / len(tumor_volumes)  # Calculate average tumor volume
     #     tumor_averages.append(average_tumor_volume)
 
-    print("Moyenne des tumor volume")
-    print(tumor_averages)
+    # print("Moyenne des tumor volume")
+    # print(tumor_averages)
     # Display a success toast message
     messages.success(request, 'Instances saved to SourisBackup and deleted successfully.')
 
@@ -307,3 +310,43 @@ def pdf_report_create(request):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+
+
+
+def deleted_souris_view(request):
+
+    souris_backup = SourisBackupModel.objects.all()
+    context = {"souris_backup" : souris_backup}
+
+    return render(request, 'randomisation/deleted_souris.html', context)
+
+
+
+def pdf_report_create_deleted_souris(request):
+
+    eliminated_souris = SourisBackupModel.objects.all()
+
+    template_path = 'randomisation/eliminated_souris_report.html'
+
+    context = {'eliminated_souris': eliminated_souris}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = 'filename="eliminated_souris_report.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+
+

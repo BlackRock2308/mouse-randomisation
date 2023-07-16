@@ -12,7 +12,6 @@
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Complete ID</th>
         <th scope="col">Mouse Id</th>
         <th scope="col">Tumor Volume</th>
@@ -25,7 +24,6 @@
     <tbody>
         {% for mice in mouse %}
       <tr>
-        <td>{{ mice.id }}</td>
         <td>{{ mice.complete_id }}</td>
         <td>{{ mice.mouse_id }}</td>
         <td>{{ mice.tumor_volume }}</td>

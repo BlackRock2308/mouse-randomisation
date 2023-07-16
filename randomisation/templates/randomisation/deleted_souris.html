@@ -1,0 +1,78 @@
+{% extends 'randomisation/main.html' %}
+
+{% block content %}
+
+<div class="col-md-12">
+    <div class="block text-center">
+      <h1 class="">Liste des souris éliminées</h1>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Complete ID</th>
+        <th scope="col">Mouse Id</th>
+        <th scope="col">Tumor Volume</th>
+        <th scope="col">CBL</th>
+        <th scope="col">H Rate</th>
+        <th scope="col">Order</th>
+        <th scope="col">Old Cage</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for mice in souris_backup %}
+      <tr>
+        <td>{{ mice.complete_id }}</td>
+        <td>{{ mice.mouse_id }}</td>
+        <td>{{ mice.tumor_volume }}</td>
+        <td>{{ mice.cbl }}</td>
+        <td>{{ mice.h_rate }}</td>
+        <td>{{ mice.order }}</td>
+        <td>{{ mice.old_cage }}</td>
+      </tr>
+      {% endfor%}
+    </tbody>
+</table>
+
+
+  
+<section class="section service gray-bg">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-5 col-md-6 col-sm-6">
+				<div class=" mb-4">
+					<div class="icon d-flex align-items-center">
+              <a class="btn btn-main btn-round-full mt-5" href="{% url 'groupe' %}" type="submit" >REFORMER LES GROUPES</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-5 col-md-6 col-sm-6">
+				<div class=" mb-4">
+					<div class="icon d-flex align-items-center">
+            <a class="btn btn-main btn-round-full mt-5" href="{% url 'create_pdf_elimaned' %}" type="submit" >Générer PDF</a>
+
+					</div>
+					
+				</div>
+			</div>
+			
+			{% comment %} <div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+                        <a class="btn btn-main btn-round-full mt-5" href="{% url 'create_pdf' %}" type="submit" >souris éliminées</a>
+					</div>
+					
+				</div>
+			</div> {% endcomment %}
+			
+		</div>
+	</div>
+</section>
+
+  
+
+{% endblock  %}
