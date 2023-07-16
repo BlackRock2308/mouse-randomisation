@@ -1,0 +1,200 @@
+{% extends 'randomisation/main.html' %}
+
+{% block content %}
+
+<div class="col-md-12">
+    <div class="block text-center">
+      <h1 class="">Liste des souris</h1>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Complete ID</th>
+        <th scope="col">Mouse Id</th>
+        <th scope="col">Tumor Volume</th>
+        <th scope="col">CBL</th>
+        <th scope="col">H Rate</th>
+        <th scope="col">Order</th>
+        <th scope="col">Old Cage</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for mice in mouse %}
+      <tr>
+        <td>{{ mice.id }}</td>
+        <td>{{ mice.complete_id }}</td>
+        <td>{{ mice.mouse_id }}</td>
+        <td>{{ mice.tumor_volume }}</td>
+        <td>{{ mice.cbl }}</td>
+        <td>{{ mice.h_rate }}</td>
+        <td>{{ mice.order }}</td>
+        <td>{{ mice.old_cage }}</td>
+      </tr>
+      {% endfor%}
+    </tbody>
+</table>
+
+
+  
+  <div class="col-md-12">
+    <div class="block text-center">
+      <h1 class="">Statistiques</h1>
+      <h3 class="">Choses importantes á savoir sur les données de ces souris</h3>
+    </div>
+  </div>
+
+
+<section class="section doctor-skills">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="sidebar-widget  gray-bg p-4">
+					<h5 class="mb-4">Nombre de souris dans votre fichier</h5>
+
+					<ul class="list-unstyled lh-35">
+                     
+					  <li class="d-flex justify-content-between align-items-center">
+					    <h3 >vous avez : </h3>
+                        <h3 class="text-color-2">{{mouse_count}} souris</h3>
+					    {% comment %} <span>{{mouse_count}} dans votre fichier</span> {% endcomment %}
+					  </li>
+					  
+					</ul>
+
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="skill-list">
+					{% comment %} <h5 class="mb-4">Voulez-vous supprimer les lignes avec des valeurs nulles</h5>
+                    <a href="appoinment.html" class="btn btn-main-2 btn-round-full mt-3">Oui<i class="icofont-simple-right ml-2  "></i></a> {% endcomment %}
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="sidebar-widget  gray-bg p-4">
+					<h5 class="mb-4">Les colonnes avec des valeurs nulles</h5>
+
+					<ul class="list-unstyled lh-35">
+                        {% for column in null_columns %}
+					  <li class="d-flex justify-content-between align-items-center">
+					    <h3 >{{ column }}</h3>
+                        {% comment %} {% if count_null_columns == 0 %}
+                            <span>Pas de colonnes avec une valeur Null</span>
+                        {% endif %} {% endcomment %}
+					    {% comment %} <span>9:00 - 17:00</span> {% endcomment %}
+					  </li>
+					   {% endfor %}
+					</ul>
+
+					</div>
+				</div>
+			</div>
+
+  
+        
+
+
+	</div>
+
+
+
+  <div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				
+              <div class="sidebar-widget  gray-bg p-4">
+                <h5 class="mb-4">Voulez-vous supprimer les lignes avec des valeurs nulles ?</h5>
+
+                <form method="post" action="{% url 'display' %}" >
+                  {% csrf_token %}
+                  <div class="col-lg-14 mt-5">
+                      <div class="skill-list">
+                          {% comment %} <h5 class="mb-4">Voulez-vous supprimer les lignes avec des valeurs nulles ?</h5> {% endcomment %}
+                          <button class="btn btn-main-2 btn-round-full mt-3"  type="submit">OUI</button>
+                          {% comment %} <a href="appoinment.html" class="btn btn-main-2 btn-round-full mt-3">Oui<i class="icofont-simple-right ml-2  "></i></a> {% endcomment %}
+                      </div>
+                  </div>
+
+              </form>
+            </div>
+      </div>
+			
+			<div class="col-lg-6">
+          <div class="sidebar-widget  gray-bg p-4">
+            <h5 class="mb-4">Cliquez sur POURSUIVRE pour continuer vos traitements</h5>
+              <div class="col-lg-14 mt-5">
+                  <div class="skill-list">
+                    
+                        <a class="btn btn-main-2 btn-round-full mt-3" 
+							          href="{% url 'choice' %}" >POURSUIVRE <i class="icofont-simple-right ml-2  "></i>
+                      </a>
+                       
+                  </div>
+              </div>            
+            </ul>
+
+          </div>
+		 </div>
+
+	</div>
+
+  
+        
+
+
+	</div>
+
+  
+</section>
+
+
+{% comment %} <section class="section doctor-skills">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="sidebar-widget  gray-bg p-4">
+					<h5 class="mb-4">Voulez-vous supprimer les lignes avec des valeurs nulles ?</h5>
+
+					<form method="post" action="{% url 'display' %}">
+            {% csrf_token %}
+            <div class="col-lg-14 mt-5">
+                <div class="skill-list">
+                    <button class="btn btn-main-2 btn-round-full mt-3"  type="submit">OUI</button>
+                </div>
+            </div>
+
+        </form>
+
+				</div>
+			</div>
+		
+			<div class="col-lg-5">
+				<div class="sidebar-widget  gray-bg p-4">
+					<h5 class="mb-4">Les colonnes avec des valeurs nulles</h5>
+
+					<ul class="list-unstyled lh-35">
+                        {% for column in null_columns %}
+					  <li class="d-flex justify-content-between align-items-center">
+					    <h3 >{{ column }}</h3>
+                        
+					  </li>
+					   {% endfor %}
+					</ul>
+
+					</div>
+				</div>
+			</div>
+
+  
+        
+
+		
+	</div>
+</section> {% endcomment %}
+
+  
+
+{% endblock  %}

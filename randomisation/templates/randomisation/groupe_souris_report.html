@@ -1,0 +1,54 @@
+<style>
+    table {
+        width: 100%;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+
+<div class="col-md-12">
+    <div class="block text-center pb-5">
+      <h1>Liste des groupes générés</h1>
+    </div>
+</div>
+
+{% for group in groups %}
+    <table class="table">
+        <h3 class="text-center">Group {{ forloop.counter }}</h3>
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Complete ID</th>
+            <th scope="col">Mouse Id</th>
+            <th scope="col">Tumor Volume</th>
+            <th scope="col">CBL</th>
+            <th scope="col">H Rate</th>
+            <th scope="col">Order</th>
+            <th scope="col">Old Cage</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for element in group %}
+        <tr>
+            <td>{{ element.5 }}</td>
+            <td>{{ element.6 }}</td>
+            <td>{{ element.0 }}</td>
+            <td>{{ element.1 }}</td>
+            <td>{{ element.2 }}</td>
+            <td>{{ element.3 }}</td>
+            <td>{{ element.4 }}</td>
+            
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+
+
+
+  
+
+  
+

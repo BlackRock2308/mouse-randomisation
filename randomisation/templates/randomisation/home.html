@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+  <meta name="author" content="themefisher.com">
+
+  <title>Randomisation</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+
+
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="{% static 'plugins/icofont/icofont.min.css' %}">
+  <!-- Slick Slider  CSS -->
+  <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick/slick.css' %}'">
+  <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick/slick-theme.css' %}">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body id="top">
+<!-- Slider Start -->
+<section class="banner">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 col-xl-7">
+				<div class="block">
+					<div class="divider mb-3"></div>
+					<h1 class="mb-3 mt-3">Faites des traitements sur les données de vos souris</h1>
+					
+					<p class="mb-4 pr-5">Une plateforme pour traiter vos classeurs excels d'une facon efficace</p>
+					{% comment %} <div class="btn-container ">
+						<a href="appoinment.html" target="_blank" class="btn btn-main-2 btn-icon btn-round-full">Make appoinment <i class="icofont-simple-right ml-2  "></i></a>
+					</div> {% endcomment %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- CSS style tag -->
+<style>
+    .banner {
+        background: url("{% static 'images/bg/banner.jpg' %}") no-repeat;
+       
+    }
+    
+</style>
+
+
+</section>
+
+<section class="features">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="feature-block d-lg-flex">
+
+					{% comment %} <div class="feature-item mb-5 mb-lg-0">
+						
+					</div> {% endcomment %}
+					<div class="container text-center mb-20 mt-5">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <form method="post" enctype="multipart/form-data" >
+                                    {% csrf_token  %}
+
+                                    <fieldset class="upload_dropZone text-center mb-3 p-4">
+                                                                
+                                    <svg class="upload_svg" width="60" height="60" aria-hidden="true">
+                                        <use href="#icon-imageUpload"></use>
+                                    </svg>
+                                
+                                    <p class="small my-2">Drag &amp; Drop background image(s) inside dashed region<br><i>or</i></p>
+                                
+                                    <input id="upload_image_background" data-post-name="image_background" data-post-url="https://someplace.com/image/uploads/backgrounds/" class="position-absolute invisible" type="file" name='myfile' accept=".xlsx" />
+                                
+                                    <label class="btn btn-upload mb-3" for="upload_image_background">Choisir le fichier</label>
+                                
+                                    <div class="upload_gallery d-flex flex-wrap justify-content-center gap-3 mb-0">
+                                       <button class="btn btn-upload mb-3" type="submit">envoyer</button>
+                                    </div>
+                                
+                                    </fieldset>
+                                
+                                </form>
+                      
+                      
+                                <svg style="display:none">
+                                    <defs>
+                                    <symbol id="icon-imageUpload" clip-rule="evenodd" viewBox="0 0 96 96">
+                                        <path d="M47 6a21 21 0 0 0-12.3 3.8c-2.7 2.1-4.4 5-4.7 7.1-5.8 1.2-10.3 5.6-10.3 10.6 0 6 5.8 11 13 11h12.6V22.7l-7.1 6.8c-.4.3-.9.5-1.4.5-1 0-2-.8-2-1.7 0-.4.3-.9.6-1.2l10.3-8.8c.3-.4.8-.6 1.3-.6.6 0 1 .2 1.4.6l10.2 8.8c.4.3.6.8.6 1.2 0 1-.9 1.7-2 1.7-.5 0-1-.2-1.3-.5l-7.2-6.8v15.6h14.4c6.1 0 11.2-4.1 11.2-9.4 0-5-4-8.8-9.5-9.4C63.8 11.8 56 5.8 47 6Zm-1.7 42.7V38.4h3.4v10.3c0 .8-.7 1.5-1.7 1.5s-1.7-.7-1.7-1.5Z M27 49c-4 0-7 2-7 6v29c0 3 3 6 6 6h42c3 0 6-3 6-6V55c0-4-3-6-7-6H28Zm41 3c1 0 3 1 3 3v19l-13-6a2 2 0 0 0-2 0L44 79l-10-5a2 2 0 0 0-2 0l-9 7V55c0-2 2-3 4-3h41Z M40 62c0 2-2 4-5 4s-5-2-5-4 2-4 5-4 5 2 5 4Z"/>
+                                    </symbol>
+                                    </defs>
+                                </svg>
+                                <p id="selected_file_name" class="mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+					{% comment %} <div class="feature-item mb-5 mb-lg-0">
+						
+					</div> {% endcomment %}
+				
+				</div>
+			</div>
+		</div>
+	</div>
+    <script>
+        document.getElementById('upload_image_background').addEventListener('change', function (e) {
+            var fileName = e.target.files[0].name;
+            document.getElementById('selected_file_name').textContent = fileName;
+        });
+    </script>
+
+
+    <script>
+       
+        /* Bootstrap 5 JS included */
+
+console.clear();
+('use strict');
+
+(function () {
+  'use strict';
+  
+  const preventDefaults = event => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const highlight = event => {
+    event.target.classList.add('highlight');
+  };
+  
+  const unhighlight = event => {
+    event.target.classList.remove('highlight');
+  };
+
+  const getInputRefs = element => {
+    const zone = element.closest('.upload_dropZone') || false;
+    const input = zone.querySelector('input[type="file"]') || false;
+    return { input: input };
+  };
+
+  const handleDrop = event => {
+    const dataRefs = getInputRefs(event.target);
+    dataRefs.file = event.dataTransfer.files[0];
+    handleFile(dataRefs);
+  };
+
+  const eventHandlers = zone => {
+    const dataRefs = getInputRefs(zone);
+    if (!dataRefs.input) return;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
+      zone.addEventListener(event, preventDefaults, false);
+      document.body.addEventListener(event, preventDefaults, false);
+    });
+
+    ['dragenter', 'dragover'].forEach(event => {
+      zone.addEventListener(event, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(event => {
+      zone.addEventListener(event, unhighlight, false);
+    });
+
+    zone.addEventListener('drop', handleDrop, false);
+    dataRefs.input.addEventListener('change', event => {
+      dataRefs.file = event.target.files[0];
+      handleFile(dataRefs);
+    }, false);
+  };
+
+  const dropZone = document.querySelector('.upload_dropZone');
+  eventHandlers(dropZone);
+
+  const handleFile = dataRefs => {
+    const formData = new FormData();
+    formData.append('myfile', dataRefs.file);
+
+    fetch('/home/', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        // Transaction succeeded, redirect to another_template.html
+        window.location.href = '/another_template/';
+      } else {
+        // Transaction failed, stay on the same page
+        console.error('Transaction failed');
+      }
+    })
+    .catch(error => {
+      console.error('Transaction error:', error);
+    });
+  };
+})();
+
+
+    </script>
+</section>
+
+
+
+
+   
+
+    <!-- 
+    Essential Scripts
+    =====================================-->
+
+    
+    <!-- Main jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.js' %}"></script>
+    <!-- Bootstrap 4.3.2 -->
+    <script src="{% static 'plugins/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/counterup/jquery.easing.js' %}"></script>
+    <!-- Slick Slider -->
+    <script src="{% static 'plugins/slick-carousel/slick/slick.min.js' %}"></script>
+    <!-- Counterup -->
+    <script src="{% static 'plugins/counterup/jquery.waypoints.min.js' %}"></script>
+    
+    <script src="{% static 'plugins/shuffle/shuffle.min.js' %}"></script>
+    <script src="{% static 'plugins/counterup/jquery.counterup.min.js' %}"></script>
+    <!-- Google Map -->
+    <script src="{% static 'plugins/google-map/map.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
+    
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+
+  </body>
+  </html>
+   

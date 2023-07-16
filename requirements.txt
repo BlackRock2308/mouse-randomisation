@@ -1,0 +1,4 @@
+django
+numpy
+django-import-export
+xhtml2pdf

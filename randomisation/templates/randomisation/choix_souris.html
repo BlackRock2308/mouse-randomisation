@@ -1,0 +1,69 @@
+{% extends 'randomisation/main.html' %}
+
+{% block content %}
+
+<div class="col-md-12">
+    <div class="block text-center">
+      <h1 class="">Nombre de souris actuel</h1>
+      <h3 class="text-color-2">{{ mouse_count }}</h3>
+
+      <h3 class="text-color-1">Vous pouvez consulter la liste des souris en cliquant <a  class=" text-color-2"
+            href="{% url 'display' %}" >ici<i class="icofont-simple-right ml-2  text-color-2"></i>
+            </a>
+      </h3>
+    </div>
+</div>
+
+
+
+  <section class="appoinment section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10">
+            <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
+                <h2 class="mb-2 title-color ">Saisissez le nombre de souris avec lequel vous voulez travailler</h2>
+            
+                <form id="#" class="appoinment-form" method="post" action="{% url 'choice' %}">
+                    {% csrf_token %}
+                    <div class="row">                         
+                        <div class="col-lg-4 ">
+                            <div class="form-group">
+                                <input required name="num_elements" id="name" type="number" class="form-control" placeholder="Nombre de souris">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <button class="btn btn-main btn-round-full" type="submit" >Appliquer<i class="icofont-simple-right ml-2"></i></button>
+                </form>
+
+            </div>
+        </div>
+  
+        <div class="col-lg-2">
+            <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
+                <h2 class="mb-2 title-color "></h2>
+                <div class="row">                         
+                    <div class="col-lg-4 ">
+                        <div class="form-group mt-5 pt-5">
+                            <a class="btn btn-main btn-round-full mt-5" href="{% url 'groupe' %}" type="submit" >CONTINUER<i class="icofont-simple-right ml-2"></i></a>
+                        </div>
+
+                        {% comment %} <div class="skill-list">
+                      
+                            <a class="btn btn-main-2 btn-round-full mt-3" 
+                                          href="{% url 'choice' %}" >SUIVANAT <i class="icofont-simple-right ml-2  "></i>
+                          </a>
+                           
+                      </div> {% endcomment %}
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  
+
+{% endblock  %}
