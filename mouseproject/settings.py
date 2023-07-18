@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+# Don't forget to import dj-database-url at the beginning of the file
+import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -29,7 +30,7 @@ SECRET_KEY = "django-insecure-je9^q@+vzm%x1jofr2z#zt28+63z!mesu+c#99lmx#+p6pdoyh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
