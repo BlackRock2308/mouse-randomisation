@@ -81,16 +81,22 @@ WSGI_APPLICATION = "mouseproject.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "dbrandomisation",
-        'USER': "yoda",
-        'PASSWORD': "L22G8kxI4RAtEmKRyOPAkkHzYMQXRwh9",
-        'HOST': "dpg-cir8oltiuie930l8uh7g-a.oregon-postgres.render.com",
-        'PORT': "5432",
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db/db.sqlite3',
     }
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': "dbrandomisation",
+#         'USER': "yoda",
+#         'PASSWORD': "L22G8kxI4RAtEmKRyOPAkkHzYMQXRwh9",
+#         'HOST': "dpg-cir8oltiuie930l8uh7g-a.oregon-postgres.render.com",
+#         'PORT': "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
