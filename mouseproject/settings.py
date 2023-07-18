@@ -83,11 +83,11 @@ WSGI_APPLICATION = "mouseproject.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
+        'NAME': ' dbrandomisation',
+        'USER': 'yoda',
+        'PASSWORD': 'L22G8kxI4RAtEmKRyOPAkkHzYMQXRwh9',
+        'HOST': 'dpg-cir8oltiuie930l8uh7g-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
