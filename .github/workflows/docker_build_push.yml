@@ -19,8 +19,8 @@ jobs:
       - name: Login to the container registry
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}  # Replace with your Docker Hub username
-          password: ${{ secrets.DOCKER_PASSWORD }}  # Replace with your Docker Hub password or access token
+          username: blackrock30  # Replace with your Docker Hub username
+          password: Lifeisagift30  # Replace with your Docker Hub password or access token
 
       - name: Read version from version.txt
         id: get_version
