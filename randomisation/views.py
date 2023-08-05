@@ -16,7 +16,7 @@ from openpyxl.styles import Font, PatternFill
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 import pandas as pd
-
+import os
 
 def detect_null_columns(table_name):
     model = apps.get_model(app_label='randomisation', model_name=table_name)
@@ -484,6 +484,8 @@ def export_to_excel_view(request):
     with open('output_groot.xlsx', 'rb') as excel_file:
         response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = 'attachment; filename=output_groot.xlsx'
+
+   
 
     return response
 
