@@ -17,7 +17,7 @@ from django.template.loader import get_template
 
 from xhtml2pdf import pisa
 
-
+import math
 
 
 def detect_null_columns(table_name):
@@ -138,7 +138,7 @@ def choix_souris(request):
             if float(souris_instance.tumor_volume) not in tumor_volume_without_extremes:
                 souris_instance.delete()
         # Rediriger l'utilisateur vers la même vue après la suppression réussie
-        return redirect('choice')
+        return redirect('groupe')
 
     return render(request, 'randomisation/choix_souris.html', context)
 
@@ -219,30 +219,114 @@ def choix_groupe_souris(request):
         complete_id = np.array(list(complete_id))
         # Convert more field values to NumPy arrays here
 
+
+        # ******************** NEW CONTENT ********************
+
+
+                # Combine all the data into a single array for easier processing
         data = np.column_stack((tumor_volume, tumor_category, h_rate, order, old_cage, complete_id, mouse_id))
-        sorted_data = data[np.argsort(data[:, 0])]
 
-        num_elements = len(sorted_data)
+        # Shuffle the data randomly
+        np.random.shuffle(data)
+
+        # Create an empty list to store the groups
+        groups = []
+
+        # Create a function to check the number of occurrences of an element in a group
+        def element_occurrences_in_group(group, element):
+            count = 0
+            for item in group:
+                if item[1] == element[1]:  # Check tumor_category (assuming it is at index 1)
+                    count += 1
+            return count
+
+        # Iterate through the shuffled data and form the groups
+        for element in data:
+            added_to_group = False
+
+            for group in groups:
+                # Check if the element already exists in the group and the group has less than num_elements_per_group
+                if not added_to_group and len(group) < num_elements_per_group:
+                    # Check if the element has fewer occurrences in the group than in the dataset
+                    element_count_in_group = element_occurrences_in_group(group, element)
+                    element_count_in_data = np.sum(tumor_category == element[1])
+                    if element_count_in_group < element_count_in_data:
+                        group.append(element.tolist())
+                        added_to_group = True
+
+            # If the element was not added to any existing group, create a new group
+            if not added_to_group:
+                groups.append([element.tolist()])
+
+        # Ensure that only one group at most has fewer elements than num_elements_per_group
+        remaining_group = []
+        for group in groups:
+            if len(group) < num_elements_per_group:
+                if len(remaining_group) == 0:
+                    remaining_group = group
+                else:
+                    remaining_group.extend(group)
+            else:
+                if len(remaining_group) > 0:
+                    groups.append(remaining_group)
+                    remaining_group = []
+
+        # If there are still elements in the remaining_group, add it as a new group
+        if len(remaining_group) > 0:
+            groups.append(remaining_group)
+
+
+
+
+
+
+
+        #***********************OLD 11***********************************
+
+
+        #  # Combine all the data into a single array for easier shuffling
+        # data = np.column_stack((tumor_volume, tumor_category, h_rate, order, old_cage, complete_id, mouse_id))
+
+        # # Shuffle the data randomly
+        # np.random.shuffle(data)
+
+        # # Calculate the number of groups based on the total number of elements and the desired size of each group
+        # num_groups = math.ceil(len(data) / num_elements_per_group)
+
+        # # Create an empty list to store the groups
+        # groups = []
+
+        # # Split the shuffled data into groups
+        # for i in range(num_groups):
+        #     start_idx = i * num_elements_per_group
+        #     end_idx = start_idx + num_elements_per_group
+        #     group = data[start_idx:end_idx].tolist()
+        #     groups.append(group)
+
+        # ******************** OLD CONTENT ********************
+
+        # data = np.column_stack((tumor_volume, tumor_category, h_rate, order, old_cage, complete_id, mouse_id))
+        # sorted_data = data[np.argsort(data[:, 0])]
+
+        # num_elements = len(sorted_data)
     
-        num_groups = math.ceil(num_elements / num_elements_per_group)  # Round up to handle remaining elements
-        remaining_elements = num_elements % num_elements_per_group
+        # num_groups = math.ceil(num_elements / num_elements_per_group)  
+        # remaining_elements = num_elements % num_elements_per_group
    
-        start_idx = 0
-        for i in range(num_groups):
-            end_idx = start_idx + num_elements_per_group
-            group = sorted_data[start_idx:end_idx]
-            groups.append(group.tolist())
+        # start_idx = 0
+        # for i in range(num_groups):
+        #     end_idx = start_idx + num_elements_per_group
+        #     group = sorted_data[start_idx:end_idx]
+        #     groups.append(group.tolist())
 
-            start_idx = end_idx
+        #     start_idx = end_idx
 
-        if remaining_elements > 0:
-            remaining_group = sorted_data[-remaining_elements:]
-            groups.append(remaining_group.tolist())
+        # if remaining_elements > 0:
+        #     remaining_group = sorted_data[-remaining_elements:]
+        #     groups.append(remaining_group.tolist())
 
-        
-            # Delete all elements from the session
-        # if 'groups' in request.session:
-        #     del request.session['groups']
+        # **********************************************
+
         
 
         request.session['groups'] = groups
