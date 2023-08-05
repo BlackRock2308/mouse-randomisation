@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master  # Replace with your main branch name
+      - develop
 
 jobs:
   build_and_push:
