@@ -5,6 +5,7 @@ on:
     branches:
       - master  # Replace with your main branch name
       - develop
+      - yoda
 
 jobs:
   build_and_push:
