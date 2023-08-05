@@ -460,7 +460,7 @@ def export_to_excel_view(request):
     df = pd.DataFrame(data)
 
     # Create an Excel writer object
-    excel_writer = pd.ExcelWriter('output_groot.xlsx', engine='openpyxl')
+    excel_writer = pd.ExcelWriter('randomisation.xlsx', engine='openpyxl')
     df.to_excel(excel_writer, index=False)
 
     # Access the openpyxl workbook and worksheet
@@ -477,15 +477,16 @@ def export_to_excel_view(request):
         cell.fill = header_fill
 
     # Save the Excel writer book
-    excel_writer.book.save('output_groot.xlsx')
+    excel_writer.book.save('randomisation.xlsx')
     excel_writer.close()
 
     # Read the Excel file into a binary format for the HTTP response
-    with open('output_groot.xlsx', 'rb') as excel_file:
+    with open('randomisation.xlsx', 'rb') as excel_file:
         response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-        response['Content-Disposition'] = 'attachment; filename=output_groot.xlsx'
+        response['Content-Disposition'] = 'attachment; filename=randomisation.xlsx'
 
-   
+    # Delete the generated file after sending the response
+    os.remove('randomisation.xlsx')
 
     return response
 

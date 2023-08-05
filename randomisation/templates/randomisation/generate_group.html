@@ -100,8 +100,6 @@
 			</div>
 		</div> {% endcomment %}
 
-        <a href="{% url 'export_to_excel' %}">Download Excel</a>
-
 		<div class="row">
 			<div class="col-lg-4 col-md-6 col-sm-6">
 				<div class=" mb-4">
@@ -115,7 +113,7 @@
 				<div class=" mb-4">
 					<div class="icon d-flex align-items-center">
                         {% comment %} <a class="btn btn-main btn-round-full mt-5" href="{% url 'create_pdf' %}" target="_blank" type="submit" >Générer PDF</a> {% endcomment %}
-                        <a class="btn btn-main btn-round-full mt-5" href="{% url 'export_to_excel' %}?groups=true" target="_blank" type="submit" >Download Excel</a>
+                        <a class="btn btn-main btn-round-full mt-5" href="{% url 'export_to_excel' %}?groups=true"  type="submit" >Download Excel</a>
 					</div>
 					
 				</div>
@@ -129,12 +127,6 @@
 					
 				</div>
 			</div>
-
-
-			
-
-			
-			
 			
 		</div>
 	</div>
