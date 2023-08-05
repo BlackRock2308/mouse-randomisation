@@ -12,5 +12,6 @@ urlpatterns = [
     path('resultat_choix/', views.pdf_report_create, name='create_pdf'),
     path('deleted_souris/', views.deleted_souris_view, name='deleted_souris'),
     path('eliminated_souris/', views.pdf_report_create_deleted_souris, name='create_pdf_elimaned'),
+    path('export-to-excel/', views.export_to_excel_view, name='export_to_excel'),
     
 ]

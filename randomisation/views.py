@@ -12,12 +12,10 @@ from django.urls import reverse
 import numpy as np
 import math
 from openpyxl import Workbook
-
+from openpyxl.styles import Font, PatternFill
 from django.template.loader import get_template
-
 from xhtml2pdf import pisa
-
-import math
+import pandas as pd
 
 
 def detect_null_columns(table_name):
@@ -434,3 +432,132 @@ def pdf_report_create_deleted_souris(request):
 
 
 
+
+
+def export_to_excel_view(request):
+    groups = request.session.get('groups', [])
+    variable_names = ['tumor_volume', 'tumor_category', 'h_rate', 'order', 'old_cage', 'complete_id', 'mouse_id']
+
+    # Create an empty list to store data for the DataFrame
+    data = {var: [] for var in variable_names}
+    data['Group'] = []
+
+    # Fill the data dictionary with values from 'groups'
+    for idx, group in enumerate(groups):
+        for element in group:
+            for i, var in enumerate(variable_names):
+                # Access the values from each element in the sub-list and append to the data dictionary
+                data[var].append(element[i])
+
+            data['Group'].append(f'Groupe {idx + 1}')
+
+        # Add a row with empty values to create a line break between groups
+        for var in variable_names:
+            data[var].append('')
+        data['Group'].append('')
+
+    # Create the DataFrame
+    df = pd.DataFrame(data)
+
+    # Create an Excel writer object
+    excel_writer = pd.ExcelWriter('output_groot.xlsx', engine='openpyxl')
+    df.to_excel(excel_writer, index=False)
+
+    # Access the openpyxl workbook and worksheet
+    workbook = excel_writer.book
+    worksheet = workbook.active
+
+    # Define the font and fill for the header cells
+    header_font = Font(bold=True, color='FFFFFF')
+    header_fill = PatternFill(start_color='008000', end_color='008000', fill_type='solid')
+
+    # Apply the style to the header row (assumes the header row is the first row in the worksheet)
+    for cell in worksheet['1']:
+        cell.font = header_font
+        cell.fill = header_fill
+
+    # Save the Excel writer book
+    excel_writer.book.save('output_groot.xlsx')
+    excel_writer.close()
+
+    # Read the Excel file into a binary format for the HTTP response
+    with open('output_groot.xlsx', 'rb') as excel_file:
+        response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=output_groot.xlsx'
+
+    return response
+
+
+
+
+# def export_to_excel_view(request):
+#     groups = request.session.get('groups', [])
+#     variable_names = ['tumor_volume', 'tumor_category', 'h_rate', 'order', 'old_cage', 'complete_id', 'mouse_id']
+
+#     # Create an empty list to store data for the DataFrame
+#     data = {var: [] for var in variable_names}
+#     data['Group'] = []
+
+#     # Fill the data dictionary with values from 'groups'
+#     for idx, group in enumerate(groups):
+#         for element in group:
+#             for i, var in enumerate(variable_names):
+#                 # Access the values from each element in the sub-list and append to the data dictionary
+#                 data[var].append(element[i])
+
+#             data['Group'].append(f'Groupe {idx + 1}')
+
+#     # Create the DataFrame
+#     df = pd.DataFrame(data)
+
+#     # Create an Excel writer object
+#     excel_writer = pd.ExcelWriter('output_3.xlsx', engine='openpyxl')
+#     df.to_excel(excel_writer, index=False)
+
+#     # Save the Excel writer book
+#     excel_writer.book.save('output_3.xlsx')
+#     excel_writer.close()
+
+#     # Read the Excel file into a binary format for the HTTP response
+#     with open('output_3.xlsx', 'rb') as excel_file:
+#         response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+#         response['Content-Disposition'] = 'attachment; filename=output_3.xlsx'
+
+#     return response
+
+
+
+
+
+# def export_to_excel_view(request):
+#     groups = request.session.get('groups', [])
+#     variable_names = ['tumor_volume', 'tumor_category', 'h_rate', 'order', 'old_cage', 'complete_id', 'mouse_id']
+
+#     # Create a dictionary to store data for the DataFrame
+#     data_dict = {var: [] for var in variable_names}
+#     data_dict['Group'] = []
+
+#     # Fill the data dictionary with values from 'groups'
+#     for idx, group in enumerate(groups):
+#         for i, var in enumerate(variable_names):
+#             data_dict[var].append(group[i])
+
+#         data_dict['Group'].append(f'Groupe {idx + 1}')
+
+#     # Create the DataFrame
+#     df = pd.DataFrame(data_dict)
+
+#     # Create an Excel writer object
+#     excel_writer = pd.ExcelWriter('output.xlsx', engine='openpyxl')
+#     df.to_excel(excel_writer, index=False)
+
+#     # Save the Excel writer book
+#     excel_writer.book.save('output.xlsx')
+#     excel_writer.close()
+
+#     # Read the Excel file into a binary format for the HTTP response
+#     with open('output.xlsx', 'rb') as excel_file:
+#         response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+#         response['Content-Disposition'] = 'attachment; filename=output.xlsx'
+
+#     return response
